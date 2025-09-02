@@ -60,7 +60,7 @@
         }
       },
       "post": {
-        "description": "Creates a new plant in the store",
+        "description": "Creates a new tomato plant in the store",
         "requestBody": {
           "description": "Plant to add to the store",
           "content": {
@@ -98,7 +98,7 @@
     },
     "/plants/{id}": {
       "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+        "description": "Deletes a single tomato plant based on the ID supplied",
         "parameters": [
           {
             "name": "id",
