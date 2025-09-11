@@ -1,0 +1,67 @@
+---
+stoplight-id: 0130fe9413a97
+---
+
+# Getting Started With Online Ordering APIs
+
+## Suggested Online Ordering Workflow - Overall
+
+![3b7afad-online-ordering-redemption-1x.png](images/3b7afad-online-ordering-redemption-1x.png)
+
+## Suggested Online Ordering Flow - Redemptions
+
+Redeem a card, reward, or discount specified by the discount_type paramater against a receipt.
+
+![NAmLsb1.png](images/NAmLsb1.png)
+
+Note: You can refer to [Make Your First SSO API Call](firstssocall.md) for more information.
+
+## Rules to Select Discount Type
+
+Following are the rules to determine which `discount_type` to use in the [Create Online Redemption](../../Reference/OO-Redemptions_1_0.yml/paths/~1api~1auth~1redemptions~1online_order/post) API request:
+
+### reward
+In the [Fetch Account Balance of User](/docs/dev-portal-online-ordering/b3A6NTAyODQ5NjM-fetch-account-balance-of-user) API request, if any item in the `rewards` array has `type` as `reward`, use its `id` to pass in the `reward_id` parameter and use `discount_type` = `reward` in the [Create Online Redemption](../../Reference/OO-Redemptions_1_0.yml/paths/~1api~1auth~1redemptions~1online_order/post) API request.
+
+### redeemable
+In the [Fetch Account Balance of User](/docs/dev-portal-online-ordering/b3A6NTAyODQ5NjM-fetch-account-balance-of-user) API request, if any item in the `rewards` array has `type` as `redeemable`, use its `id` to pass in the `redeemable_id` parameter and use `discount_type` = `redeemable` in the [Create Online Redemption](../../Reference/OO-Redemptions_1_0.yml/paths/~1api~1auth~1redemptions~1online_order/post) API request.
+
+### discount_amount
+Only for businesses that use Banked Rewards. In the [Fetch Account Balance of User](/docs/dev-portal-online-ordering/b3A6NTAyODQ5NjM-fetch-account-balance-of-user) API request, if the value of `banked_rewards` returned in `balance` object is greater than 0, then pass a dollar amount in the `redeemed_points` parameter not exceeding the value of `banked_rewards` and use `discount_type` = `discount_amount` in the [Create Online Redemption](../../Reference/OO-Redemptions_1_0.yml/paths/~1api~1auth~1redemptions~1online_order/post) API request.
+
+### card_completion
+Only for visit-based businesses. In the [Fetch Account Balance of User](/docs/dev-portal-online-ordering/b3A6NTAyODQ5NjM-fetch-account-balance-of-user) API request, if the value of `unredeemed_cards` returned in the `balance` object is greater than 0, then use `discount_type` = `card_completion` in the [Create Online Redemption](../../Reference/OO-Redemptions_1_0.yml/paths/~1api~1auth~1redemptions~1online_order/post) API request.
+
+### redemption_code
+If a Punchh redemption code or coupon code is supplied from the UI or generated via API, that code will be passed in the `redemption_code` parameter with `discount_type` = `redemption_code` in the [Create Online Redemption](../../Reference/OO-Redemptions_1_0.yml/paths/~1api~1auth~1redemptions~1online_order/post) API request.
+
+### subscription
+It allows a user to redeem subscription related benefits. Fetch the subscriptions of the user and pass the ID of the subscription that you want to redeem in the `subscription_id` parameter and use `discount_type` = `subscription` in the [Create Online Redemption](../../Reference/OO-Redemptions_1_0.yml/paths/~1api~1auth~1redemptions~1online_order/post) API request.
+
+## API at a Glance
+
+Here are some of the methods that you might find useful while you try to establish an online ordering flow.
+
+|Goal | API Endpoint
+|--------------------- | --------------------
+|Sign up/ register a user. | [Sign up With Email and Password](/docs/dev-portal-online-ordering/b3A6NTAyODQ5NjQ-signup-with-email-and-password)
+|Sign in/ log in a user. | [Log in With Email and Password](/docs/dev-portal-online-ordering/b3A6NTAyODQ5NjI-login-with-email-and-password)
+|Sign in/ log in with Facebook. | [Connect With Facebook](/docs/dev-portal-online-ordering/b3A6NTAyODQ5Njg-connect-with-facebook)
+|Fetch account balance of the user. | [Fetch Account Balance of User](/docs/dev-portal-online-ordering/b3A6NTAyODQ5NjM-fetch-account-balance-of-user)
+|Redeem a card, reward, or discount on a particular receipt. | [Create Online Redemption](../../Reference/OO-Redemptions_1_0.yml/paths/~1api~1auth~1redemptions~1online_order/post)
+|Fetch available offers of the user. | [Fetch Available Offers of the User](/docs/dev-portal-online-ordering/b3A6NTAyODQ5OTQ-fetch-available-offers-of-the-user)
+|Update user profile (first name, last name, birthday, anniversary, password etc.) | [Update User Information](/docs/dev-portal-online-ordering/b3A6NTAyODQ5NzE-update-user-information)
+|Trigger forgot password email containing the password reset link. | [Forgot Password](/docs/dev-portal-online-ordering/b3A6NTAyODQ5Njk-forgot-password)
+|Update password of the user.| [Change Password](/docs/dev-portal-online-ordering/b3A6NTAyODQ5Nzc-change-password)
+
+<footer>
+   
+  <div style="font-family:Helvetica; display:flex;justify-content:center;font-weight: 100;font-size: 11px;background:#FFFFFF;color:#8CA1AF;padding-bottom:  0px;padding-top:  50px;padding-left:  25px;padding-right:  25px;margin:  0px 0px 0px 0px;">Copyright © 2025 PAR Technology Corporation. All rights reserved.</div>
+
+  <div style="font-family:Helvetica; display:flex;justify-content:center;font-weight: 100;font-size: 11px;background:#FFFFFF;color:#8CA1AF;padding-bottom:  0px;padding-top:  5px;padding-left:  25px;padding-right:  25px;margin:  0px 0px 0px 0px;">PAR Technology Corporation 8383 Seneca Turnpike, Suite 3 New Hartford, New York 13413 (315) 738-0600 legal@partech.com. PAR Tech is a leading global provider of software, systems, and service solutions to the restaurant and retail industries.</div>
+
+  <div style="font-family:Helvetica; display:flex;justify-content:center;font-weight: 100;font-size: 11px;background:#FFFFFF;color:#8CA1AF;padding-bottom:  0px;padding-top:  5px;padding-left:  25px;padding-right:  25px;margin:  0px 0px 0px 0px;">You may learn about its product offerings&nbsp;<a href="https://partech.com/products/" target="_blank" style="color: #297BFF;">here</a>.</div>  
+
+  <div style="font-family:Helvetica; display:flex;justify-content:center;font-weight: 100;font-size: 11px;background:#FFFFFF;color:#8CA1AF;padding-bottom:  0px;padding-top:  5px;padding-left:  25px;padding-right:  25px;margin:  0px 0px 0px 0px;">Before using this application, please read the&nbsp;<a href="https://devtools.partech.com/punchh-limited-license-agreement-web-terms.pdf" target="_blank" style="color: #297BFF;">Limited License Agreement</a>&nbsp;and the&nbsp;<a href="https://partech.com/terms-of-use/" target="_blank" style="color: #297BFF;">PAR Tech Terms of Use</a>.</div> 
+
+</footer>
